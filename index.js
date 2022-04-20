@@ -18,13 +18,12 @@ const holidays = [
     { date: "12/25/2022", name: "Natal" },
 ];
 
-let aux = "";
-
-holidays.map((holiday) => {
-    aux = aux + `<p>${holiday.date} - ${holiday.name}</p>`;
-});
-
 app.get("/holidays", (req, res) => {
+    let aux = "";
+
+    holidays.map((holiday) => {
+        aux = aux + `<p>${holiday.date} - ${holiday.name}</p>`;
+    });
     res.send(aux);
 });
 
@@ -40,6 +39,25 @@ app.get("/is-today-holiday", (req, res) => {
         res.send(`Hoje não é feriado!`);
     } else {
         res.send(`Hoje é feriado! ${todayHolidayArr[0].name}`);
+    }
+});
+
+app.get("/holidays/:idMonth", (req, res) => {
+    const idMonth = req.params.idMonth;
+
+    const holidaysMonth = holidays.filter((holiday) => {
+        return holiday.date.split("/")[0] === idMonth;
+    });
+
+    let aux = "";
+    holidaysMonth.map((holidayMonth) => {
+        aux = aux + `<p>${holidayMonth.date} - ${holidayMonth.name}</p>`;
+    });
+
+    if (holidaysMonth.length === 0) {
+        res.send(`Não há feriados neste mês!`);
+    } else {
+        res.send(aux);
     }
 });
 
