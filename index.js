@@ -18,8 +18,14 @@ const holidays = [
     { date: "12/25/2022", name: "Natal" },
 ];
 
+let aux = "";
+
+holidays.map((holiday) => {
+    aux = aux + `<p>${holiday.date} - ${holiday.name}</p>`;
+});
+
 app.get("/holidays", (req, res) => {
-    res.send(holidays);
+    res.send(aux);
 });
 
 app.get("/is-today-holiday", (req, res) => {
