@@ -30,8 +30,6 @@ app.get("/is-today-holiday", (req, res) => {
         return holiday.date === today;
     });
 
-    console.log(todayHolidayArr);
-
     if (todayHolidayArr.length === 0) {
         res.send(`Hoje não é feriado!`);
     } else {
